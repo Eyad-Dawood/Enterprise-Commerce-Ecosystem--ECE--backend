@@ -1,0 +1,21 @@
+﻿global using FluentValidation;
+global using MediatR;
+global using MediatR.Pipeline;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using ECE.Application.Common.Behaviours;
+global using ECE.Application.Common.Exceptions;
+global using ECE.Application.Common.Helpers;
+global using ECE.Application.Common.Interfaces;
+global using ECE.Application.Common.Models;
+global using ECE.Application.Features.Identity.Dtos;
+global using ECE.Domain.Common;
+global using ECE.Domain.Common.Entities;
+global using ECE.Domain.Common.Results;
+global using ECE.Domain.Common.Results.Abstractions;
+global using ECE.Domain.Identity;
+global using System.Diagnostics;
+global using System.Reflection;
+global using System.Security.Claims;
+
