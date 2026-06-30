@@ -1,19 +1,24 @@
 ﻿
+using Microsoft.Data.SqlClient;
+
 namespace ECE.Infrastructure.BackgroundJobs
 {
     public class ExpirationEntitiesMarkupService(
-        IOptions<BackgroundServicesSettings> options) : BackgroundService
+        IOptions<BackgroundServicesSettings> options,
+        ILogger<ExpirationEntitiesMarkupService> logger,
+        TimeProvider timeProvider,
+        IServiceScopeFactory serviceScopeFactory) : BackgroundService
     {
         private readonly BackgroundServicesSettings Options = options.Value;
 
-        /* private static readonly Dictionary<Type, object> ExpirationStateConditions = new()
+        private static readonly Dictionary<Type, object> ExpirationStateConditions = new()
      {
-         { typeof(ExpirationEntity), ExpriationEntityStateEnum.SearchForState(Avilable/Pending) }
-     };*/
+         //{ typeof(ExpirationEntity), ExpriationEntityStateEnum.SearchForState(Avilable/Pending) }
+     };
 
         protected override async Task ExecuteAsync(CancellationToken ct)
         {
-           /* var timer = new PeriodicTimer(
+            var timer = new PeriodicTimer(
                 TimeSpan.FromMinutes(Options.ExpirationCheckIntervalInMinutes));
 
             while (await timer.WaitForNextTickAsync(ct))
@@ -76,7 +81,7 @@ namespace ECE.Infrastructure.BackgroundJobs
                         tableName);
                     }
                 }
-            }*/
+            }
         }
     }
 }

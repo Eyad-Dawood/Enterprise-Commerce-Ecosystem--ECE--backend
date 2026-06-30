@@ -3,7 +3,9 @@
 
 public class AppDbContextInitialiser(
     ILogger<AppDbContextInitialiser> logger,
-    AppDbContext context)
+    AppDbContext context,
+    UserManager<AppUser> userManager,
+    RoleManager<IdentityRole> roleManager)
 {
     private const int DatabaseStartupMaxAttempts = 12;
     private static readonly TimeSpan DatabaseStartupDelay = TimeSpan.FromSeconds(5);
@@ -38,6 +40,8 @@ public class AppDbContextInitialiser(
 
     public async Task SeedAsync()
     {
+        logger.LogInformation("Seeding database...");
+
         try
         {
             await TrySeedAsync();
@@ -50,8 +54,50 @@ public class AppDbContextInitialiser(
     }
 
     #region Methods
+    public async Task SeedRoles(string adminRoleName)
+    {
+        if (!await roleManager.RoleExistsAsync(adminRoleName))
+        {
+            await roleManager.CreateAsync(new IdentityRole(adminRoleName));
+            logger.LogInformation("Admin role created");
+        }
+    }
+    private async Task<AppUser?> CreateUserIfNotExistsAsync(AppUser user, string password, string role)
+    {
+        var existingUser = await userManager.FindByEmailAsync(user.Email!);
 
+        if (existingUser is not null)
+        {
+            logger.LogInformation("User {Email} already exists", user.Email);
+            return existingUser;
+        }
 
+        user.Id = Guid.NewGuid().ToString();
+
+        var createResult = await userManager.CreateAsync(user, password);
+
+        if (!createResult.Succeeded)
+        {
+            logger.LogError("Failed to create user {Email}: {Errors}",
+                user.Email,
+                string.Join(", ", createResult.Errors.Select(e => e.Description)));
+            return null;
+        }
+
+        var roleResult = await userManager.AddToRoleAsync(user, role);
+
+        if (!roleResult.Succeeded)
+        {
+            logger.LogError("Failed to assign role {Role} to user {Email}: {Errors}",
+                role,
+                user.Email,
+                string.Join(", ", roleResult.Errors.Select(e => e.Description)));
+        }
+
+        logger.LogInformation("User {Email} created with role {Role}", user.Email, role);
+
+        return user;
+    }
 
 
     #region Flow
@@ -60,9 +106,20 @@ public class AppDbContextInitialiser(
 
     #endregion
 
-    public Task TrySeedAsync()
+    public async Task TrySeedAsync()
     {
-        return Task.CompletedTask;
+        await SeedRoles("Admin");
+
+
+        var adminUser = new AppUser()
+        {
+            UserName = "admin",
+            Email = "admin@Ece.com",
+            EmailConfirmed = true,
+        };
+
+        await CreateUserIfNotExistsAsync(adminUser, "Admin123", "Admin");
+
     }
     #region Helpers
     private async Task<bool> DatabaseAlreadyExistsAsync()

@@ -47,7 +47,7 @@ public class TokenProvider
         var descriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = expires.DateTime,
+            Expires = expires.UtcDateTime,
             Issuer = issure,
             Audience = audience,
             SigningCredentials = new SigningCredentials(
