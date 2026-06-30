@@ -15,7 +15,7 @@ public record ProductBrandName : ValueObject<string>
 
     public static string Normalize(string value)
     {
-        return ArabicNormalizer.Normalize(value.Trim());
+        return ArabicNormalizer.Normalize(value.Trim().ToLower());
     }
     private static Result<string> Validate(string value)
     {
