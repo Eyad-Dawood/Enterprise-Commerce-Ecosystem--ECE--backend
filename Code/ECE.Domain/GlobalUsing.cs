@@ -1,9 +1,18 @@
-﻿global using MediatR;
-global using ECE.Domain.Common;
+﻿global using ECE.Domain.Common;
 global using ECE.Domain.Common.Entities;
 global using ECE.Domain.Common.Results;
 global using ECE.Domain.Common.Results.Abstractions;
+global using ECE.Domain.Common.ValueObjects;
+global using ECE.Domain.Warehouse.ProductBrands.ValueObjects;
+global using ECE.Domain.Warehouse.Products.Enums;
+global using ECE.Domain.Warehouse.Products.ValueObjects;
+global using MediatR;
 global using System.ComponentModel;
 global using System.ComponentModel.DataAnnotations.Schema;
 global using System.Text.Json.Serialization;
+global using System.Text.RegularExpressions;
+global using ECE.Domain.Common.Utilities.Normalization;
+global using ECE.Domain.Warehouse.ProductCategories.ValueObjects;
+global using ECE.Domain.Warehouse.ProductBrands;
+global using ECE.Domain.Warehouse.ProductCategories;
 
