@@ -57,5 +57,8 @@ public class ProductConfigurations : IEntityTypeConfiguration<Product>
 
         builder.Navigation(p => p.Tags)
             .UsePropertyAccessMode(PropertyAccessMode.Field);
+
+        builder.Navigation(p => p.Skus)
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

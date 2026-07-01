@@ -19,6 +19,12 @@ public record Dimensions3D
     public Dimension Height { get; }
     public LengthUnit LengthUnit { get; }
 
+#pragma warning disable CS8618
+    //For Ef Core
+    private Dimensions3D()
+    {
+    }
+
     private Dimensions3D(
         Dimension length,
         Dimension width,

@@ -1,4 +1,4 @@
-﻿
+﻿using ECE.Domain.Warehouse.Skus;
 
 namespace ECE.Domain.Warehouse.Products;
 
@@ -28,4 +28,8 @@ public class Product : Entity, IAuditableEntity, IConcurrencyEntity
 
     public ProductBrand? Brand { get; private set; }
     public ProductCategory? Category { get; private set; }
+
+
+    private readonly List<Sku> _skus = [];
+    public IReadOnlyCollection<Sku> Skus => _skus;
 }

@@ -16,6 +16,12 @@ global using ECE.Domain.Warehouse.Products;
 global using ECE.Domain.Warehouse.Products.ProductTags;
 global using ECE.Domain.Warehouse.Products.ProductTags.ValueObjects;
 global using ECE.Domain.Warehouse.Products.ValueObjects;
+global using ECE.Domain.Warehouse.Skus;
+global using ECE.Domain.Warehouse.Skus.SkuAttributesDefinitions;
+global using ECE.Domain.Warehouse.Skus.SkuAttributesDefinitions.ValueObjects;
+global using ECE.Domain.Warehouse.Skus.SkuAttributesValues;
+global using ECE.Domain.Warehouse.Skus.SkuAttributesValues.ValueObjects;
+global using ECE.Domain.Warehouse.Skus.ValueObjects;
 global using ECE.Infrastructure.BackgroundJobs;
 global using ECE.Infrastructure.Common.Errors;
 global using ECE.Infrastructure.Data;
@@ -48,4 +54,3 @@ global using System.Net.Mail;
 global using System.Security.Claims;
 global using System.Security.Cryptography;
 global using System.Text;
-

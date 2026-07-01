@@ -2,6 +2,8 @@
 
 public record SkuBarcode : ValueObject<string>
 {
+    public const int MaxLength = 14;
+
     private static readonly Regex BarcodeRegex =
        new(@"^\d{8}|\d{12}|\d{13}|\d{14}$", RegexOptions.Compiled);
 

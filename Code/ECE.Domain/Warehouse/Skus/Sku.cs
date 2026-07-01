@@ -1,9 +1,9 @@
-﻿using ECE.Domain.Warehouse.Skus.SkuAttributesValues;
-
-namespace ECE.Domain.Warehouse.Skus;
+﻿namespace ECE.Domain.Warehouse.Skus;
 
 public class Sku : Entity,IAuditableEntity,IConcurrencyEntity
 {
+    public const int DefaultImageRelativePathMaxLength = 1000;
+
     public DateTimeOffset CreatedAtUtc { get; }
     public string? CreatedBy { get; }
     public DateTimeOffset LastModifiedUtc { get; }
@@ -11,7 +11,7 @@ public class Sku : Entity,IAuditableEntity,IConcurrencyEntity
     public byte[] RowVersion { get; private set; } = [];
 
 
-    public Guid ProductId { get;}
+    public Guid ProductId { get; private set; }
     public SkuCode Code { get; private set; } = null!;
     public SkuBarcode Barcode { get; private set; } = null!;
     public Price SellingPrice { get; private set; } = null!;
