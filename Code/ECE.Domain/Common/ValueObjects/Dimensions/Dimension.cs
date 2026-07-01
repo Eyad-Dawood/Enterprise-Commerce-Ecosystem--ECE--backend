@@ -1,5 +1,17 @@
 ﻿namespace ECE.Domain.Common.ValueObjects.Dimensions;
 
+public static class DimensionErrors
+{
+    private const string ClassName = nameof(Dimension);
+
+    public static readonly Error InvalidDimension =
+        DomainCommonErrors.InvalidProp(
+            ClassName,
+            "Value",
+            "Dimension Value",
+            $"It must be between {Dimension.MinValue} and {Dimension.MaxValue}");
+}
+
 public record Dimension : ValueObject<decimal>
 {
     public const decimal MinValue = 0.0001m;

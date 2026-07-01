@@ -1,5 +1,24 @@
 ﻿namespace ECE.Domain.Common.ValueObjects.Prices;
 
+public static class PriceErrors
+{
+    private const string ClassName = nameof(Price);
+
+    public static readonly Error InvalidPrice =
+        DomainCommonErrors.InvalidProp(
+            ClassName,
+            "Amount",
+            "Price Amount",
+            $"It must be between {Price.MinValue} and {Price.MaxValue}");
+
+    public static readonly Error InvalidCurrency =
+        DomainCommonErrors.InvalidProp(
+            ClassName,
+            "Currency",
+            "Currency",
+            "It must be a valid currency");
+}
+
 public record Price 
 {
     public decimal Amount { get; }

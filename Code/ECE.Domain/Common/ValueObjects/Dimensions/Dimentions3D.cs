@@ -1,5 +1,17 @@
 ﻿namespace ECE.Domain.Common.ValueObjects.Dimensions;
 
+public static class Dimension3DErrors
+{
+    private const string ClassName = nameof(Dimensions3D);
+
+    public static readonly Error InvalidLengthUnit =
+    DomainCommonErrors.InvalidProp(
+        ClassName,
+        "LengthUnit",
+        "Length Unit",
+        "It must be a valid length unit");
+}
+
 public record Dimensions3D
 {
     public Dimension Length { get; }
@@ -26,7 +38,7 @@ public record Dimensions3D
         LengthUnit lengthUnit)
     {
         if (!Enum.IsDefined(lengthUnit))
-            return DimensionErrors.InvalidLengthUnit;
+            return Dimension3DErrors.InvalidLengthUnit;
 
         return new Dimensions3D(length, width, height, lengthUnit);
     }

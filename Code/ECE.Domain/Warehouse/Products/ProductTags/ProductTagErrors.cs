@@ -8,10 +8,10 @@ public static class ProductTagErrors
     static public readonly Error InvalidProductTagName =
         DomainCommonErrors.InvalidProp(
             ClassName,
-            "ProductTagName",
-            "Product Tag Name",
+            "tag_name",
+            "Tag Name",
             $"It must be between {ProductTagName.MinLength} and {ProductTagName.MaxLength} characters");
 
     static public readonly Error ProductTagNameRequired =
-        DomainCommonErrors.RequiredProp(ClassName, "ProductTagName", "Product Tag Name");
+        DomainCommonErrors.RequiredProp(ClassName, "tag_name", "Tag Name");
 }
