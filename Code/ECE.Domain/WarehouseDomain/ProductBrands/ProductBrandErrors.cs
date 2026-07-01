@@ -1,0 +1,17 @@
+﻿
+namespace ECE.Domain.WarehouseDomain.ProductBrands;
+
+public static class ProductBrandErrors
+{
+    private const string ClassName = nameof(ProductBrand);
+
+    static public readonly Error ProductBrandNameRequired =
+    DomainCommonErrors.RequiredProp(ClassName, "brand_name", "Brand Name");
+
+    static public readonly Error InvalidProductBrandName =
+        DomainCommonErrors.InvalidProp(
+            ClassName,
+            "brand_name",
+            "Brand Name",
+            $"It must be between {ProductBrandName.MinLength} and {ProductBrandName.MaxLength} characters and contain only Arabic/English letters, English numbers, and spaces");
+}
