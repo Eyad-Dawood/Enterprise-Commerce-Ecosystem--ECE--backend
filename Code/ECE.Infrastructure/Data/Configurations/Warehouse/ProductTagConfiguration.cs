@@ -1,5 +1,4 @@
-﻿
-namespace ECE.Infrastructure.Data.Configurations;
+﻿namespace ECE.Infrastructure.Data.Configurations.Warehouse;
 
 public class ProductTagConfiguration : IEntityTypeConfiguration<ProductTag>
 {
