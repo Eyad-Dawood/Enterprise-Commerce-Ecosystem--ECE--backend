@@ -1,4 +1,5 @@
-﻿namespace ECE.Infrastructure.Data;
+﻿
+namespace ECE.Infrastructure.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options, IMediator mediator) : IdentityDbContext<AppUser>(options), IAppDbContext
 {
@@ -7,6 +8,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options, IMediator medi
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.ConfigureSequences();
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 

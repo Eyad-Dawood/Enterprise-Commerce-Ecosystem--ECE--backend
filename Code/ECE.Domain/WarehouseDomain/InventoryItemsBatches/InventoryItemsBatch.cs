@@ -2,6 +2,9 @@
 
 public class InventoryItemsBatch: Entity , IAuditableEntity
 {
+    public const int LotMaxLength = 50;
+    public const int LotMinLength = 6;
+
     public DateTimeOffset CreatedAtUtc { get; }
     public string? CreatedBy { get; }
     public DateTimeOffset LastModifiedUtc { get; }

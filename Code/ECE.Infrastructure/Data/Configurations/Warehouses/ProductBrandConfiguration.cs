@@ -1,4 +1,4 @@
-﻿namespace ECE.Infrastructure.Data.Configurations.Warehouse;
+﻿namespace ECE.Infrastructure.Data.Configurations.Warehouses;
 
 public class ProductBrandConfiguration : IEntityTypeConfiguration<ProductBrand>
 {
