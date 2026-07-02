@@ -19,6 +19,7 @@ global using ECE.Domain.WarehouseDomain.Products.Enums;
 global using ECE.Domain.WarehouseDomain.Products.ProductTags;
 global using ECE.Domain.WarehouseDomain.Products.ProductTags.ValueObjects;
 global using ECE.Domain.WarehouseDomain.Products.ValueObjects;
+global using ECE.Domain.WarehouseDomain.Shipments.Enums;
 global using ECE.Domain.WarehouseDomain.Skus;
 global using ECE.Domain.WarehouseDomain.Skus.Enums;
 global using ECE.Domain.WarehouseDomain.Skus.SkuAttributesDefinitions;

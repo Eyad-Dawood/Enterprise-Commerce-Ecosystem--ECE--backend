@@ -1,6 +1,4 @@
-﻿using ECE.Domain.WarehouseDomain.Skus;
-
-namespace ECE.Domain.WarehouseDomain.Products;
+﻿namespace ECE.Domain.WarehouseDomain.Products;
 
 public class Product : Entity, IAuditableEntity, IConcurrencyEntity
 {
