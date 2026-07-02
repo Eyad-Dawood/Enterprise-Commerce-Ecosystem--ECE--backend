@@ -1,8 +1,9 @@
-﻿
-namespace ECE.Domain.WarehouseDomain.Shipments;
+﻿namespace ECE.Domain.WarehouseDomain.Shipments;
 
 public class Shipment : Entity , IAuditableEntity , IConcurrencyEntity
 {
+    public const int ExternalLocationMaxLength = 1000;
+
     public DateTimeOffset CreatedAtUtc { get; }
     public string? CreatedBy { get; }
     public DateTimeOffset LastModifiedUtc { get; }

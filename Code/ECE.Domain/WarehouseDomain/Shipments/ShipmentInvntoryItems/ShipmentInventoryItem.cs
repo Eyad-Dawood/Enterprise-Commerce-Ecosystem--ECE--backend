@@ -1,7 +1,4 @@
-﻿using ECE.Domain.WarehouseDomain.InventoryItems;
-using ECE.Domain.WarehouseDomain.Shipments.ShipmentLines;
-
-namespace ECE.Domain.WarehouseDomain.Shipments.ShipmentInvntoryItems;
+﻿namespace ECE.Domain.WarehouseDomain.Shipments.ShipmentInvntoryItems;
 
 public class ShipmentInventoryItem : Entity, IAuditableEntity, IConcurrencyEntity
 {
