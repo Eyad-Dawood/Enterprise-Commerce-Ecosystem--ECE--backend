@@ -570,12 +570,10 @@ namespace ECE.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PickSequence");
-
-                    b.HasIndex("WarehouseId");
-
                     b.HasIndex("Code", "WarehouseId")
                         .IsUnique();
+
+                    b.HasIndex("WarehouseId", "PickSequence");
 
                     b.ToTable("StorageLocations", (string)null);
                 });
@@ -588,8 +586,9 @@ namespace ECE.Infrastructure.Data.Migrations
                     b.Property<Guid>("CurrentWarehouseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 

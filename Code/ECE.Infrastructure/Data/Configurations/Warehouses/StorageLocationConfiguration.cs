@@ -74,6 +74,6 @@ public class StorageLocationConfiguration : IEntityTypeConfiguration<StorageLoca
         builder.HasIndex(p=>new { p.Code , p.WarehouseId})
             .IsUnique();
 
-        builder.HasIndex(p => p.PickSequence);
+        builder.HasIndex(p => new {p.WarehouseId, p.PickSequence});
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECE.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260701195733_AddedInventoryItem_Batch_Warehouse_StorageLocation")]
-    partial class AddedInventoryItem_Batch_Warehouse_StorageLocation
+    [Migration("20260702105428_Warehouse")]
+    partial class Warehouse
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -127,6 +127,49 @@ namespace ECE.Infrastructure.Data.Migrations
                     b.ToTable("InventoryItems", (string)null);
                 });
 
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.InventoryItems.InventoryItemTransactions.InventoryItemTransaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AfterState")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BeforeState")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InventoryItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("InventoryItemId");
+
+                    b.ToTable("InventoryItemTransactions", (string)null);
+                });
+
             modelBuilder.Entity("ECE.Domain.WarehouseDomain.InventoryItemsBatches.InventoryItemsBatch", b =>
                 {
                     b.Property<Guid>("Id")
@@ -228,6 +271,192 @@ namespace ECE.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTags", (string)null);
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.Shipment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("Direction")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExternalLocation")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<DateTimeOffset?>("ScheduledDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("WarehouseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("Shipments", (string)null);
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.ShipmentInvntoryItems.ShipmentInventoryItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("InventoryItemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("ShipmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ShipmentLineId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("InventoryItemId");
+
+                    b.HasIndex("ShipmentLineId");
+
+                    b.HasIndex("ShipmentId", "InventoryItemId")
+                        .IsUnique();
+
+                    b.ToTable("ShipmentInventoryItems", (string)null);
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.ShipmentLines.ShipmentLine", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("ShipmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SkuId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkuId");
+
+                    b.HasIndex("ShipmentId", "SkuId")
+                        .IsUnique();
+
+                    b.ToTable("ShipmentLines", (string)null);
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.ShipmentTransactions.ShipmentTransaction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AfterStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BeforeStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("CreatedAtUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTimeOffset>("LastModifiedUtc")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("ShipmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ShipmentId");
+
+                    b.ToTable("ShipmentTransactions", (string)null);
                 });
 
             modelBuilder.Entity("ECE.Domain.WarehouseDomain.Skus.Sku", b =>
@@ -333,6 +562,9 @@ namespace ECE.Infrastructure.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("PickSequence")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -341,12 +573,34 @@ namespace ECE.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("WarehouseId");
-
                     b.HasIndex("Code", "WarehouseId")
                         .IsUnique();
 
+                    b.HasIndex("WarehouseId", "PickSequence");
+
                     b.ToTable("StorageLocations", (string)null);
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Warehouses.Employees.Employee", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CurrentWarehouseId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrentWarehouseId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("ECE.Domain.WarehouseDomain.Warehouses.Warehouse", b =>
@@ -616,6 +870,25 @@ namespace ECE.Infrastructure.Data.Migrations
                     b.Navigation("StorageLocation");
                 });
 
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.InventoryItems.InventoryItemTransactions.InventoryItemTransaction", b =>
+                {
+                    b.HasOne("ECE.Domain.WarehouseDomain.Warehouses.Employees.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECE.Domain.WarehouseDomain.InventoryItems.InventoryItem", "InventoryItem")
+                        .WithMany()
+                        .HasForeignKey("InventoryItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("InventoryItem");
+                });
+
             modelBuilder.Entity("ECE.Domain.WarehouseDomain.ProductBrands.ProductBrand", b =>
                 {
                     b.OwnsOne("ECE.Domain.WarehouseDomain.ProductBrands.ValueObjects.ProductBrandName", "Name", b1 =>
@@ -741,6 +1014,90 @@ namespace ECE.Infrastructure.Data.Migrations
 
                     b.Navigation("TagName")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.Shipment", b =>
+                {
+                    b.HasOne("ECE.Domain.WarehouseDomain.Warehouses.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Warehouse");
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.ShipmentInvntoryItems.ShipmentInventoryItem", b =>
+                {
+                    b.HasOne("ECE.Domain.WarehouseDomain.Warehouses.Employees.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECE.Domain.WarehouseDomain.InventoryItems.InventoryItem", "InventoryItem")
+                        .WithMany()
+                        .HasForeignKey("InventoryItemId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECE.Domain.WarehouseDomain.Shipments.Shipment", "Shipment")
+                        .WithMany()
+                        .HasForeignKey("ShipmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECE.Domain.WarehouseDomain.Shipments.ShipmentLines.ShipmentLine", "ShipmentLine")
+                        .WithMany()
+                        .HasForeignKey("ShipmentLineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("InventoryItem");
+
+                    b.Navigation("Shipment");
+
+                    b.Navigation("ShipmentLine");
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.ShipmentLines.ShipmentLine", b =>
+                {
+                    b.HasOne("ECE.Domain.WarehouseDomain.Shipments.Shipment", "Shipment")
+                        .WithMany()
+                        .HasForeignKey("ShipmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECE.Domain.WarehouseDomain.Skus.Sku", "Sku")
+                        .WithMany()
+                        .HasForeignKey("SkuId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Shipment");
+
+                    b.Navigation("Sku");
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Shipments.ShipmentTransactions.ShipmentTransaction", b =>
+                {
+                    b.HasOne("ECE.Domain.WarehouseDomain.Warehouses.Employees.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECE.Domain.WarehouseDomain.Shipments.Shipment", "Shipment")
+                        .WithMany()
+                        .HasForeignKey("ShipmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Shipment");
                 });
 
             modelBuilder.Entity("ECE.Domain.WarehouseDomain.Skus.Sku", b =>
@@ -1066,6 +1423,17 @@ namespace ECE.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Warehouse");
+                });
+
+            modelBuilder.Entity("ECE.Domain.WarehouseDomain.Warehouses.Employees.Employee", b =>
+                {
+                    b.HasOne("ECE.Domain.WarehouseDomain.Warehouses.Warehouse", "CurrentWarehouse")
+                        .WithMany()
+                        .HasForeignKey("CurrentWarehouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CurrentWarehouse");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

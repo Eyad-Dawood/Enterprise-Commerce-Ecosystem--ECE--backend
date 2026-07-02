@@ -7,7 +7,7 @@ public class Employee : Entity , IAuditableEntity
     public DateTimeOffset LastModifiedUtc { get; }
     public string? LastModifiedBy { get; }
 
-    public Guid UserId { get; private set; }
+    public string UserId { get; private set; } = null!;
     public Guid CurrentWarehouseId { get; private set; }
 
     public Warehouse? CurrentWarehouse { get; private set; }
