@@ -36,11 +36,21 @@ static public class DomainCommonErrors
     static public Error DateShouldBeInPast(string Class, string PropertyCode, string PropertyDescription) =>
         Error.Validation($"{Class}.{PropertyCode}.date_should_be_in_past", $"{Class} {PropertyDescription} should be in the past.");
 
-    static public Error InvalidStateTransition(string Class, string FromState, string ToState) =>
+    static private Error InvalidStateTransition(string Class, string FromState, string ToState) =>
         Error.Conflict($"{Class}.invalid_state_transition", $"Cannot transition from {FromState} to {ToState}");
 
-    static public Error InvalidStateTransitionSameState(string Class, string State) =>
+    static private Error InvalidStateTransitionSameState(string Class, string State) =>
        Error.Conflict($"{Class}.invalid_state_transition", $"State is already {State}");
+
+    static public Error InvalidStateTransition<T>(string ClassName, T FromState, T ToState) where T : struct, Enum
+    {
+        if (FromState.Equals(ToState))
+        {
+            return InvalidStateTransitionSameState(ClassName, FromState.ToString());
+        }
+
+        return InvalidStateTransition(ClassName, FromState.ToString(), ToState.ToString());
+    }
 }
 
 
