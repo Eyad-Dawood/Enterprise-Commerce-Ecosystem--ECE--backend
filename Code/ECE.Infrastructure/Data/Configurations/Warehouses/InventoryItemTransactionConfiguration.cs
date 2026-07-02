@@ -4,6 +4,8 @@ public class InventoryItemTransactionConfiguration : IEntityTypeConfiguration<In
 {
     public void Configure(EntityTypeBuilder<InventoryItemTransaction> builder)
     {
+        builder.ConfigureAuditable();
+
         builder.ToTable("InventoryItemTransactions");
 
         builder.HasKey(x => x.Id);

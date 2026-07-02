@@ -19,6 +19,8 @@ public class StorageLocationConfiguration : IEntityTypeConfiguration<StorageLoca
         builder.Property(sl => sl.WarehouseId)
             .IsRequired();
 
+        builder.Property(sl => sl.PickSequence)
+            .IsRequired();
 
         builder.OwnsOne(sl => sl.StorageRequirements, sr =>
         {
@@ -71,5 +73,7 @@ public class StorageLocationConfiguration : IEntityTypeConfiguration<StorageLoca
     
         builder.HasIndex(p=>new { p.Code , p.WarehouseId})
             .IsUnique();
+
+        builder.HasIndex(p => p.PickSequence);
     }
 }

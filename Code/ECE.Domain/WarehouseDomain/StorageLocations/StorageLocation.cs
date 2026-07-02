@@ -9,6 +9,7 @@ public class StorageLocation : Entity
     public Guid WarehouseId { get; private set; }
     public StorageRequirements StorageRequirements { get; private set; } = null!;
     public StorageLocationStatus Status { get; private set; }
+    public int PickSequence {  get; private set; }
 
     public Warehouse? Warehouse { get; private set; }
 }
