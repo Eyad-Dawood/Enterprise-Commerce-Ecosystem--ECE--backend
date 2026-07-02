@@ -60,3 +60,4 @@ global using System.Net.Mail;
 global using System.Security.Claims;
 global using System.Security.Cryptography;
 global using System.Text;
+global using ECE.Domain.WarehouseDomain.InventoryItems.InventoryItemTransactions;
